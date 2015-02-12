@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>WP AntiDDOS plugin</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+		li p { margin-bottom:10px; }
+		li { list-style-position: top; }
+	</style>
+</head>
+
+
+<body>
+	<div class="container">
+	
+	
+		<h1 class="center">&ldquo;WP AntiDDOS plugin&rdquo;</h1>
+		
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Created: 2014<br>
+					Last update: 8-feb-2015<br>
+					Version: 2.0<br>
+					By: zzmaster<br>
+					<!--Web: -->
+					</strong>
+				</p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for downloading WP AntiDDOS plugin.</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol class="alpha">
+			<li><a href="#basics">Basics</a></li>
+			<li><a href="#requirements">Requirements</a></li>
+			<li><a href="#installation">Installation</a></li>
+			<li><a href="#principle">How it works</a></li>
+			<li><a href="#secomp">Search engine compatibility</a></li>
+			<li><a href="#ajax">Dynamically load content </a></li>
+			<li><a href="#custom_query">Custom Query Processing </a></li>
+			<li><a href="#effectiveness">The effectiveness of the plugin </a></li>
+		</ol>
+		
+		<hr>
+		<h3 id="basics"><strong>Basics</strong> - <a href="#toc">top</a></h3>
+	
+		<p>Plugin WP AntiDDOS prevents DDOS attacks on your website by blocking the frequent requests from one or several related IP addresses. This includes HTTP flood and Password cracking attacks. The plugin stores the data in the MySQL table (MEMORY engine), and that ensures its high performance. We recommend to insert a plugin call into the beginning of the <em> index.php </em> file  of the WordPress, it will significantly increase its effectiveness, since attack requests will be rejected by plugin <em> before </em> WordPress heavy engine connection. You have to do it manually. (see the instructions on the page with plugin's Configuration) </p>
+
+		<hr>
+		<h3 id="requirements"><strong>Requirements</strong> - <a href="#toc">top</a></h3>
+		<ul>
+			<li><a href="http://wordpress.org/download/">WordPress 3.1+</a></li>
+			<li>PHP 5.2.0 or above</li>
+			<li>mySQL 5.0 or above</li>
+		</ul>
+		
+		<hr>
+		<h3 id="installation"><strong>Installation</strong> - <a href="#toc">top</a></h3>
+		<ol>
+			<li>Extract the contents of the ZIP file into your <em>&lt;root&gt;/wp-content/plugins/wpantiddos</em> folder.</li>
+			<li>Login to the WordPress administration area.</li>
+			<li>Click 'Plugins' in the left hand main navigation menu.</li>
+			<li>Scroll down to <em>WP AntiDDOS</em> and click activate</li>
+			<li>You will see a notice at the top of your page. Click the configuration link. Alternatively naviagte to Plugins => WP AntiDDOS page.</li>			<li>Review plugin's settings and change if needed.</a>
+			<li>Optionally, but very advisable - insert plugin's call into the beginning of Wordpress' <em>index.php</em> file (see instructions on plugin's Configuration page)</li>
+		</ol>
+
+		<hr>
+		<h3 id="principle"><strong>How it works</strong> - <a href="#toc">top</a></h3>
+		<p>You are setting two main parameters in the Configuration of the plugin - <em>Hits Limit</em> and <em>Seconds Limit</em>. They specify the maximum number of requests from related IP addresses within a certain time. Plugin conciders IP addresses <br />
+a.b.c.1 <br />
+a.b.c.2 <br />
+a.b.c.3 <br />
+... <br />
+a.b.c.255 <br />
+as related, they usually belong to the same LAN, and DDOS attacks are often made from many computers on the local network, because if one computer is infected, the attacker easily can infect others.
+If the plugin detects that during <em>Seconds Limit</em> from some local network there is more than <em>Hits Limit requests</em>, then excessive requests are blocked - plugin responds by status <em> 503 Service not available </em> with the code, which reloads the page after a while, which is specified in the plugin Configuration as <em>Delay Time</em>. Limits are specified separately for GET, POST, XHR and Login requests.
+</p>
+
+		<hr>
+		<h3 id="secomp"><strong>Search engine compatibility</strong> - <a href="#toc">top</a></h3>
+		<p>Sometimes search engines produce enough frequent queries, which can cause blockage by the WP AntiDDOS plugin. However, the plugin does not affect search engine indexation, because a response with status code <em> 502 Service not available </em> is not a content of a page, but a technical reports on its currently unavailability. In any case, we recommend to use <a href="http://en.wikipedia.org/wiki/Robots_exclusion_standard#Crawl-delay_directive"> Crawl-delay</a> directive in you<em> robots.txt </em> file. </p>
+
+
+		<hr>
+		<h3 id="custom_query"><strong>Custom Query Processing </strong> - <a href="#toc">top</a></h3>
+		<p>
+		WP AntiDDOS plugin can be configured to handling only a certain types of queries. For example, the search queries load the server most significantly, and therefore are often used to attack sites. In the plugin's Configuration in the <em>GET or POST parameters that activate DDOS check up </em>  text field you can enter POST or GET parameters (blank separated) that identify the requests to be processed by plugin and then set the <em> Process only requests with following GET / POST parameters </em>  to <em>Yes</em>. For example, <em>s pwd</em> parameters, which is defined in the text box since plugin has installed, identifies the Wordpress' search queries and Login attemts. Please, note, that you have separate setting for Login requests that is usefull for preventing Password Cracking attacks.
+		</p>
+
+		<hr>
+		<h3 id="effectiveness"><strong>The effectiveness of the plugin  </strong> - <a href="#toc">top</a></h3>
+		<p>
+		DDOS attacks are very different both by scale and by the used methods. Being a Wordpress plugin, WP AntiDDOS is effective against such attacks as HTTP flood, which affect the Wordpress engine. They are technically simple and most commonly used for disabling Wordpress websites. Usage of the WP AntiDDOS plugin - good practice for basic protection, which is effective in a large number of cases.
+		</p>
+		
+		
+		<p class="append-bottom alt large"><strong>zzmaster</strong></p>
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+	</div><!-- end div .container -->
+</body>
+</html>
